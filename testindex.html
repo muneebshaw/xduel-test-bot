@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Progress Bar</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/baby-school'); /* Corrected font import */
+        
+        body {
+            /* text-align: center; */
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .loading-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: none;
+            -webkit-text-stroke: 1px black; /* Black outline */
+            font-family: 'Baby School', sans-serif;
+        }
+
+        .loading-container {
+            position: relative;
+            width: 90%; /* Always 90% of the parent container */
+            height: 13px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: calc((90vw / 343) * 6.5);
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 0 15px white; /* White glow effect */
+        }
+
+        .progress-bar {
+            width: 0%; /* Start at 0% */
+            height: 100%;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            transition: width 0.1s ease-in-out;
+            box-shadow: 0 0 10px white; /* White glow effect */
+            border-radius: 13px; /* Rounded edges on both sides */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-text" id="loading-text">LOADING... 0%</div>
+    <div class="loading-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <script>
+        function animateProgressBar() {
+            let progress = 0;
+            let progressBar = document.getElementById("progress-bar");
+            let loadingText = document.getElementById("loading-text");
+
+            let interval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(interval); // Stop when 100% is reached
+                } else {
+                    progress++;
+                    progressBar.style.width = progress + "%";
+                    loadingText.innerText = "LOADING... " + progress + "%";
+                }
+            }, 50); // Adjust speed (lower = faster)
+        }
+
+        // Start animation when page loads
+        window.onload = animateProgressBar;
+    </script>
+
+</body>
+</html>
